@@ -6,10 +6,10 @@ const app = express();
 app.set('view engine', 'ejs');
 
 const db = mysql.createConnection({
-    host: 'hmonorail.proxy.rlwy.net',
-    user: 'uroot',   // replace with your MySQL username
-    password: 'pQBcvGIQCskdeZSbAgGMajVYdQnTeqjhL', // replace with your MySQL password
-    database: 'railway'   // your database name
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 db.connect(err => {
