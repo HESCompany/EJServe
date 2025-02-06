@@ -1,13 +1,32 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
 
+const express = require('express');
+const mysql = require('mysql');
+
+const app = express();
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  res.render('index', { judul: 'Halo, Dunia!' });
+const db = mysql.createConnection({
+    host: 'hmonorail.proxy.rlwy.net',
+    user: 'uroot',   // replace with your MySQL username
+    password: 'pQBcvGIQCskdeZSbAgGMajVYdQnTeqjhL', // replace with your MySQL password
+    database: 'railway'   // your database name
 });
 
-app.listen(port, () => {
-  console.log(`Server berjalan di http://localhost:${port}`);
+db.connect(err => {
+    if (err) {
+        throw err;
+    }
+    console.log('MySQL Connected...');
 });
+
+app.get('/', (req, res) => {
+    db.query('SELECT * FROM users', (err, results) => {
+        if (err) throw err;
+        res.render('index', { users: results });
+    });
+});
+
+app.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+});
+

@@ -1,11 +1,16 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title><%= judul %></title>
+    <title>User List</title>
 </head>
 <body>
-  <h1><%= judul %></h1>
-  <p>Selamat datang di aplikasi EJS pertamamu!</p>
+    <h1>Users</h1>
+    <ul>
+        <% users.forEach(user => { %>
+            <li><%= user.name %> - <%= user.email %></li>
+        <% }); %>
+    </ul>
 </body>
 </html>
+
